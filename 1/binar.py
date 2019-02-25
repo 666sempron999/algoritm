@@ -11,6 +11,7 @@ def timeit(method):
         result = method(*args, **kw)
         te = time.time()
         # print("{} ({}, {}) {} sec".format(method.__name__, args, kw, te-ts))
+        print("Exec time of {}".format(method.__name__))
         print("{} sec".format(te - ts))
         print("--------------------------------------------------------------")
         return result
@@ -34,23 +35,29 @@ def binary_search(sList, item):
 
     return None
 
+
 @timeit
 def line_search(sList, item):
     index = 0
-    l = len(sList)
+    listLen = len(sList)
 
     while sList[index] != item:
         index += 1
-        if index == l:
+        if index == listLen:
             return None
 
     return index
 
 
+@timeit
+def range_list_creation(numbers):
+    return list(range(1, numbers))
+
+
 def main():
-    a = list(range(1, 1000000000))
-    first = (binary_search(a, 999999999))
-    second = (line_search(a, 999999999))
+    a = range_list_creation(1000000000)
+    first = (binary_search(a, 99999999))
+    second = (line_search(a, 99999999))
 
 
 if __name__ == "__main__":
